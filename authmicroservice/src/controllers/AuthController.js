@@ -1,10 +1,9 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const User = require('../models/User');
+const User = require('../models/user');
 
 const register = async (req, res) => {
-    const { username, email, password } = req.body;
-    const predefinedRoleId = '66434531db0d0c89925c0f06'; // ObjectID predefinido
+    const { username, email, password, role } = req.body;
 
     try {
         let user = await User.findOne({ username });
@@ -17,10 +16,10 @@ const register = async (req, res) => {
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
-        user = new User({ username, email, password: hashedPassword, role: predefinedRoleId });
+        user = new User({ username, email, password: hashedPassword, role });
         await user.save();
 
-        res.status(201).json({ message: 'Admin registrado exitosamente', user });
+        res.status(201).json({ message: 'Usuario registrado exitosamente', user });
     } catch (error) {
         console.error(error.message);
         res.status(500).json({ message: 'Error al registrar usuario' });

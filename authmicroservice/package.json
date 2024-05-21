@@ -2,10 +2,10 @@
   "name": "authmicroservice",
   "version": "1.0.0",
   "description": "FEPI Integrated Software authentications and authorizations",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development nodemon src/app.js",
-    "start": "cross-env NODE_ENV=production node src/app.js",
+    "dev": "cross-env NODE_ENV=development nodemon server.js",
+    "start": "cross-env NODE_ENV=production node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "CARG",
@@ -21,7 +21,8 @@
     "helmet": "^7.1.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.3.3",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "nodemon": "^3.1.0"

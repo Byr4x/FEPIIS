@@ -27,7 +27,7 @@ function RegisterPage() {
           <input type="text" {...register("username", {required:true, minLength:4})} className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2" placeholder="Username"/>
           {errors.username && errors.username.type === "required" && (<p className="text-red-500">Username is required</p>)}
           {errors.username && errors.username.type === "minLength" && (<p className="text-red-500">Username must be at least 4 characters long</p>)}
-          <input type="email" {...register("email", {required:true, pattern:/^\S+@\S+$/i })} className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2" placeholder="Email"/>
+          <input type="text" {...register("email", {required:true, pattern:/^\S+@\S+$/i })} className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2" placeholder="Email"/>
           {errors.email && errors.email.type === "required" && (<p className="text-red-500">Email is required</p>)}
           {errors.email && errors.email.type === "pattern" && (<p className="text-red-500">Invalid email format</p>)}
           <input type="password" {...register("password", {required:true, minLength:8})} className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2" placeholder="Password"/>

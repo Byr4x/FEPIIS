@@ -17,8 +17,8 @@ function App() {
           <Route path='/fepi/auth/register' element={<RegisterPage/>}/>
           <Route path='/fepi/profile' element={<ProfilePage/>}/>
           <Route path='/fepi/users' element={<UsersPage/>}/>
-          <Route path='/fepi/create-user' element={<UserFormPage/>}/>
-          <Route path='/fepi/users/:id' element={<UserFormPage/>}/>
+          {/* <Route path='/fepi/create-user' element={<UserFormPage/>}/>
+          <Route path='/fepi/users/:id' element={<UserFormPage/>}/> */}
         </Routes>
       </BrowserRouter>
     </AuthProvider>
