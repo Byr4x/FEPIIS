@@ -19,7 +19,7 @@ const authorizeAdmin = async (req, res, next) => {
         return res.status(403).json({ message: 'Acceso no autorizado' });
     }
 
-    const adminRole = await Role.findOne({ name: 'admin' });
+    const adminRole = await Role.findOne({ name: 'Admin' });
     if (!adminRole) {
         return res.status(403).json({ message: 'Rol de administrador no encontrado' });
     }

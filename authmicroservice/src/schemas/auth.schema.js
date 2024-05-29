@@ -22,7 +22,7 @@ const passwordValidation = (password) => {
   if (errors.length > 0) {
     return errors.join(', ');
   }
-
+  
   return true;
 };
 

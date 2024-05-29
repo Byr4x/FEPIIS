@@ -15,14 +15,14 @@ const register = async (req, res) => {
             return res.status(400).json(['El email ya está en uso']);
         }
 
-        const hashedPassword = await bcrypt.hash(password, 10);
+        const hashedPassword = await bcrypt.hash(password, 12);
         user = new User({ username, email, password: hashedPassword, role });
-        await user.save();
+        await user.save();  
 
-        res.status(201).json({ message: 'Usuario registrado exitosamente', user });
+        res.status(201).json(['Usuario registrado exitosamente', user ]);
     } catch (error) {
         console.error(error.message);
-        res.status(500).json({ message: 'Error al registrar usuario' });
+        res.status(500).json(['Error al registrar usuario']);
     }
 };
 

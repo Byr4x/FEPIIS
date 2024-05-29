@@ -35,9 +35,10 @@ app.get('/', (req, res) => {
 });
 
 // Rutas
+
 app.use('/fepi/auth', authRoutes);
 app.use('/fepi/users', userRoutes);
-app.use('/fepi/users/roles', roleRoutes);
-app.use('/fepi/users/roles/permissions', permissionRoutes);
+app.use('/fepi/roles', roleRoutes);
+app.use('/fepi/permissions', permissionRoutes);
 
 module.exports = app;
