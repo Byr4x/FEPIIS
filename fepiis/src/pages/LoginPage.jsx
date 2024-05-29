@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../context/authContext";
 import { Link } from "react-router-dom";
-import SignInput from "../components/auth/SignInput";
 
 function LoginPage() {
   const {register, handleSubmit, formState: {errors}} = useForm()
