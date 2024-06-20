@@ -3,10 +3,11 @@ const router = express.Router();
 const PermissionController = require('../controllers/permissionController');
 const { authenticateToken, authorizeAdmin } = require('../middlewares/auth');
 
-router.post('/create', authenticateToken, authorizeAdmin, PermissionController.createPermission);
-router.put('/:id', authenticateToken, authorizeAdmin, PermissionController.updatePermission);
-router.get('/:id', authenticateToken, authorizeAdmin, PermissionController.getPermissionById);
-router.get('/', authenticateToken, authorizeAdmin, PermissionController.getAllPermissions);
-router.delete('/:id', authenticateToken, authorizeAdmin, PermissionController.disablePermission);
+router.post('/create', PermissionController.createPermission);
+router.put('/:id', PermissionController.updatePermission);
+router.get('/:id', PermissionController.getPermissionById);
+router.get('/', PermissionController.getAllPermissions);
+router.patch('/:id/toggle', PermissionController.togglePermissionStatus);
+router.delete('/:id', PermissionController.deletePermission);
 
 module.exports = router;

@@ -1,4 +1,5 @@
 const Permission = require('../models/permission');
+const Role = require('../models/role');
 
 const createPermission = async (req, res) => {
     const { name, description } = req.body;
@@ -47,15 +48,15 @@ const getPermissionById = async (req, res) => {
 
 const updatePermission = async (req, res) => {
     const { id } = req.params;
-    const { name, description } = req.body;
+    const { name, description, active } = req.body;
 
     try {
         const existingPermission = await Permission.findOne({ name });
         if (existingPermission && existingPermission._id.toString() !== id) {
-            return res.status(400).json({ message: 'El nombre del permiso ya está en uso' });
+            return res.status(400).json({ message: 'El permiso ya existe' });
         }
 
-        const permission = await Permission.findByIdAndUpdate(id, { name, description }, { new: true });
+        const permission = await Permission.findByIdAndUpdate(id, { name, description, active }, { new: true });
         if (!permission) {
             return res.status(404).json({ message: 'Permiso no encontrado' });
         }
@@ -67,19 +68,41 @@ const updatePermission = async (req, res) => {
     }
 };
 
-const disablePermission = async (req, res) => {
+const togglePermissionStatus = async (req, res) => {
     const { id } = req.params;
+    const { active } = req.body;
 
     try {
-        const permission = await Permission.findByIdAndUpdate(id, { active: false }, { new: true });
+        const permission = await Permission.findByIdAndUpdate(id, { active }, { new: true });
         if (!permission) {
             return res.status(404).json({ message: 'Permiso no encontrado' });
         }
 
-        res.json({ message: 'Permiso inhabilitado correctamente', permission });
+        res.json({ message: `Permiso ${active ? 'habilitado' : 'inhabilitado'} correctamente`, permission });
     } catch (error) {
         console.error(error.message);
-        res.status(500).json({ message: 'Error al inhabilitar permiso' });
+        res.status(500).json({ message: `Error al ${active ? 'habilitar' : 'inhabilitar'} permiso` });
+    }
+};
+
+const deletePermission = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const rolesWithPermission = await Role.find({ permissions: id });
+        if (rolesWithPermission.length > 0) {
+            return res.status(400).json({ message: 'No se puede eliminar el permiso porque está asignado a uno o más roles' });
+        }
+
+        const permission = await Permission.findByIdAndDelete(id);
+        if (!permission) {
+            return res.status(404).json({ message: 'Permiso no encontrado' });
+        }
+
+        res.json({ message: 'Permiso eliminado correctamente' });
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ message: 'Error al eliminar permiso' });
     }
 };
 
@@ -88,5 +111,6 @@ module.exports = {
     getAllPermissions,
     getPermissionById,
     updatePermission,
-    disablePermission,
+    togglePermissionStatus,
+    deletePermission,
 };

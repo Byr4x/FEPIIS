@@ -3,10 +3,11 @@ const router = express.Router();
 const RoleController = require('../controllers/roleController');
 const { authenticateToken, authorizeAdmin } = require('../middlewares/auth');
 
-router.post('/create', authenticateToken, authorizeAdmin, RoleController.createRole);
-router.put('/:id', authenticateToken, authorizeAdmin, RoleController.updateRole);
-router.get('/:id', authenticateToken, authorizeAdmin, RoleController.getRoleById);
+router.post('/create', RoleController.createRole);
+router.put('/:id', RoleController.updateRole);
+router.get('/:id', RoleController.getRoleById);
 router.get('/', RoleController.getAllRoles);
-router.delete('/:id', authenticateToken, authorizeAdmin, RoleController.disableRole);
+router.patch('/:id/toggle', RoleController.toggleRoleStatus);
+router.delete('/:id', RoleController.deleteRole);
 
 module.exports = router;
